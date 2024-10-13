@@ -52,7 +52,6 @@ parser.add_argument("--seed", '-s', type=int, default=55, help="The number of th
 parser.add_argument("--start_problem", '-start', type=int, default=0, help="The number of threads to use for evaluation.")
 parser.add_argument("--n_problems", '-n', type=int, default=1, help="The number of threads to use for evaluation.")
 parser.add_argument("--append", '-a', type=int, default=1, help="The number of threads to use for evaluation.")
-parser.add_argument("--use_gamma_api", '-gamma', type=int, default=1, help="The number of threads to use for evaluation.")
 parser.add_argument("--supervised", type=str, default='unsupervised', help="The number of threads to use for evaluation.")
 parser.add_argument("--multi_role", '-multi', type=int, default=0, help="Specific Roles to LLM evaluate.")
 parser.add_argument("--max_tokens", '-max_t', type=int, default=3600, help="Specific Roles to LLM evaluate.")
