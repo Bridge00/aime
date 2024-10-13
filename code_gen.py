@@ -1,16 +1,3 @@
-"""
-This codes runs a code generation pipeline for instance optimization.
-
-The dataset used is the LeetCodeHardEval dataset. Part of the LeetCodeHard-Gym dataset.
-
-Since we are evaluating using leetcode, the code has to run in two phases:
-
-In the first phase, we parallel process the generation of the code using OpenAI's APIs.
-In the second phase, we evaluate the code using the leetcode environment.
-
-We need to do this because we cannot parallelize the leeetcode evaluation as it makes API calls for which
-we have a rate limit.
-"""
 
 import copy
 from dotenv import load_dotenv
@@ -25,7 +12,6 @@ from textgrad import Variable
 from textgrad.optimizer import TextualGradientDescent
 from textgrad.tasks import load_instance_task
 from prompts import CodeTestTimewithTests, SYSTEM_PROMPT_FOR_FIRST_CODE, CODE_INSTANCE_ROLE_DESCRIPTION
-from evaluators.lt_eval import LeetCodeEvaluator
 from evaluators.py_eval import PythonEvaluator
 import os
 import argparse
@@ -38,8 +24,6 @@ from tenacity import (
 )
 from api_key_utils import set_api_key
 from single_eval_role_prompt import single_eval_role_prompts
-
-
 
 parser = argparse.ArgumentParser(description="Optimize a prompt for a task.")
 parser.add_argument("--engine", type=str, default="gpt-4o", help="The API to use for evaluation.")
@@ -306,13 +290,6 @@ def evaluation_and_optimization_pipeline(task_id, prompt, index, tests, MAX_ITER
     return generated_programs
 
 
-def evaluate_or_except(program):
-    try:
-        res = (internal_evaluator.check_if_in_cache_or_submit(program["task_id"], program["code"]))
-        return res[0], res[1], res[2], res[3]
-    except Exception as e:
-        print(e)
-        return False, -1, -1, -1
 
 
 if __name__ == "__main__":
