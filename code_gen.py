@@ -64,7 +64,7 @@ parser.add_argument('--adversarial','-adv', type=int, default= 1, metavar='N',
 args = parser.parse_args()
 
 
-set_api_key(args.use_gamma_api)
+set_api_key()
 
 if args.multi_role:
     args.num_evals = len(args.roles) 
