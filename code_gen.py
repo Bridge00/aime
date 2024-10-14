@@ -388,7 +388,7 @@ if __name__ == "__main__":
 
 
 
-        save_folder = f"./results_fixed/code_optimization/textgrad/{TEST_ENGINE}/"
+        save_folder = f"./results/code_optimization/textgrad/{TEST_ENGINE}/"
 
         os.makedirs(save_folder, exist_ok=True)
 
