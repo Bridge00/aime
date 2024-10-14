@@ -302,10 +302,10 @@ class FormattedLLMCall(LLMCall):
                                     roles = self.roles,
                                     adversarial = self.adversarial
                                     )
-        if isinstance(response_text, tuple):
-            response_text, individual_evals = response_text[0], response_text[1]
-        else:
-            individual_evals = '' 
+        # if isinstance(response_text, tuple):
+        #     response_text, individual_evals = response_text[0], response_text[1]
+        # else:
+        #     individual_evals = '' 
 
         # Create the response variable
         response = Variable(
@@ -322,7 +322,7 @@ class FormattedLLMCall(LLMCall):
                                              prompt=formatted_input_string, 
                                              system_prompt=system_prompt_value))
         
-        return response, individual_evals
+        return response
 
 
 class LLMCall_with_in_context_examples(LLMCall):
