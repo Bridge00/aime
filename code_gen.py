@@ -42,8 +42,7 @@ parser.add_argument("--max_tokens", '-max_t', type=int, default=3600, help="Spec
 parser.add_argument("--instance_task", type=str, default='LeetCodeHardEval', help="Specific Roles to LLM evaluate.")
 parser.add_argument('--roles','-r', nargs='*', type=str, default= ['logic', 'syntax', 'readability', 'redundancy', 'correctness', 'runtime'], metavar='N',
                     help='') 
-parser.add_argument('--adversarial','-adv', type=int, default= 1, metavar='N',
-                    help='') 
+parser.add_argument('--adversarial','-adv', type=int, default= 0, metavar='N', help='') 
 args = parser.parse_args()
 
 
@@ -216,7 +215,7 @@ def generate_starting_solution(prompt, index):
 
     return llm_first_code
 
-@retry(wait=wait_random_exponential(min=1, max=5), stop=stop_after_attempt(5))
+# @retry(wait=wait_random_exponential(min=1, max=5), stop=stop_after_attempt(5))
 def evaluation_and_optimization_pipeline(task_id, prompt, index, tests, MAX_ITERS):
     """
     :param prompt:
@@ -261,7 +260,7 @@ def evaluation_and_optimization_pipeline(task_id, prompt, index, tests, MAX_ITER
 
     for iter in range(1 + MAX_ITERS):
         print('iteration', iter)
-        state, test_string, eval, individual_evals = optimization_one_iteration(optimizer, instance_var, prompt, tests)
+        state, test_string, eval = optimization_one_iteration(optimizer, instance_var, prompt, tests)
         generated_programs[-1]["state"] = state
         generated_programs[-1]["test_string"] = test_string
         generated_programs[-1]['gradients'] = list(instance_var.gradients)[0].value
@@ -307,7 +306,7 @@ if __name__ == "__main__":
         "iteration_idx": [],
         'evaluation': [],
         'gradients': [],
-        'individual_evals': [],
+        # 'individual_evals': [],
     }
 
 
@@ -371,7 +370,7 @@ if __name__ == "__main__":
 
             collection["gradients"].append(program['gradients'])
             collection["evaluation"].append(program['evaluation'])
-            collection["individual_evals"].append(program["individual_evals"])
+            # collection["individual_evals"].append(program["individual_evals"])
 
             collection["local_tests"].append(program["test_string"])
             collection["local_test_state"].append(program["state"])
@@ -382,9 +381,14 @@ if __name__ == "__main__":
 
         program_df = pd.DataFrame(collection)
 
+        if args.aggregator == '':
+            ag = 'none'
+        else:
+            ag = args.aggregator
 
 
-        save_folder = f"./results_fixed/code_optimization/textgrad/{TEST_ENGINE}/{code_initial}_initial_code/"
+
+        save_folder = f"./results_fixed/code_optimization/textgrad/{TEST_ENGINE}/"
 
         os.makedirs(save_folder, exist_ok=True)
 
