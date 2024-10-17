@@ -6,3 +6,4 @@ __pycache__
 results
 logs
 .env
+initial_codes_outputs*
