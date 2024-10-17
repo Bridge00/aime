@@ -22,7 +22,6 @@ from tenacity import (
     stop_after_attempt,
     wait_random_exponential,
 )
-from api_key_utils import set_api_key
 from single_eval_role_prompt import single_eval_role_prompts
 
 parser = argparse.ArgumentParser(description="Optimize a prompt for a task.")
@@ -46,7 +45,6 @@ parser.add_argument('--adversarial','-adv', type=int, default= 0, metavar='N', h
 args = parser.parse_args()
 
 
-set_api_key()
 
 if args.multi_role:
     args.num_evals = len(args.roles) 
