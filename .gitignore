@@ -9,3 +9,4 @@ logs
 initial_codes_outputs*
 data/EvoEval*
 *.ipynb
+*.jsonl

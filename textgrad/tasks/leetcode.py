@@ -10,7 +10,7 @@ class LeetCodeHardEval(Dataset):
             root = platformdirs.user_cache_dir("textgrad")
 
         self.root = root
-        data_path = f"{self.root}/data/leetcode-hard.jsonl"
+        data_path = f"{self.root}/leetcode-hard.jsonl"
         self._check_or_download_dataset()
 
         self.dataset = [json.loads(line) for line in open(data_path)]
@@ -21,7 +21,8 @@ class LeetCodeHardEval(Dataset):
         return self._task_description
 
     def _check_or_download_dataset(self):
-        data_path = f"{self.root}/data/leetcode-hard.jsonl"
+        data_path = f"{self.root}/leetcode-hard.jsonl"
+        print(data_path, self.root)
         if os.path.exists(data_path):
             return
         
@@ -50,7 +51,7 @@ class HumanEval(Dataset):
             root = platformdirs.user_cache_dir("textgrad")
         #print('in human eval')
         self.root = root
-        data_path = f"{self.root}/data/HumanEval_clean.jsonl"
+        data_path = f"{self.root}/HumanEval_clean.jsonl"
         #self._check_or_download_dataset()
 
         self.dataset = [json.loads(line) for line in open(data_path)]
