@@ -7,4 +7,4 @@ results
 logs
 .env
 initial_codes_outputs*
-data/*
+data/EvoEval*
