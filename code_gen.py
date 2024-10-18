@@ -25,7 +25,7 @@ from tenacity import (
 from single_eval_role_prompt import single_eval_role_prompts
 
 parser = argparse.ArgumentParser(description="Optimize a prompt for a task.")
-parser.add_argument("--engine", type=str, default="gpt-4o", help="The API to use for evaluation.")
+parser.add_argument("--engine", type=str, default="gpt-4o-mini", help="The API to use for evaluation.")
 parser.add_argument("--max_iterations", type=int, default=10, help="The maximum number of iterations of test-time updates.")
 parser.add_argument("--num_threads", type=int, default=16, help="The number of threads to use for evaluation.")
 parser.add_argument("--num_evals", type=int, default=1, help="The number of threads to use for evaluation.")
