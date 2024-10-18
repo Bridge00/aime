@@ -3,8 +3,9 @@
 LICENSE
 __pycache__/*
 __pycache__
-results
+results*
 logs
 .env
 initial_codes_outputs*
 data/EvoEval*
+*.ipynb
